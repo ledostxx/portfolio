@@ -6,7 +6,7 @@ const siteConfig: SiteConfig = {
     website: 'https://example.com',
     avatar: {
         src: avatar,
-        alt: 'Ethan Donovan'
+        alt: 'Leonard Dost'
     },
     title: 'Dante',
     subtitle: 'Minimal Astro.js theme',
@@ -67,7 +67,7 @@ const siteConfig: SiteConfig = {
     ],
     hero: {
         title: 'Hi There & Welcome to My Corner of the Web!',
-        text: "I'm **Ethan Donovan**, a web developer at Amazing Studio, dedicated to the realms of collaboration and artificial intelligence.\nMy approach involves embracing intuition, conducting just enough research, and leveraging aesthetics as a catalyst for exceptional products.\nI have a profound appreciation for top-notch software, visual design, and the principles of product-led growth.\n\nFeel free to explore some of my coding endeavors on [GitHub](https://github.com/JustGoodUI/dante-astro-theme) or follow me on [Twitter/X](https://twitter.com/justgoodui).",
+        text: "I'm **Leonard Dost**, an Applied Data Science student with a passion for artificial intelligence and web development.\nI love turning data into insights and building digital products that make a difference.\n\nFeel free to explore my projects and get in touch!",
         image: {
             src: hero,
             alt: 'A person sitting at a desk in front of a computer'
