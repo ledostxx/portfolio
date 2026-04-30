@@ -2,13 +2,16 @@
 title: Get in touch
 seo:
   title: Contact
-  description: Get in touch through email or social media! Let me know how I can help.
+  description: Get in touch with Leonard Dost — open to opportunities in data science, ML engineering, and data consulting.
 ---
 
-Thank you for reaching out! Whether you have a question, a suggestion, or just want to share your thoughts, I'm all ears. Feel free to get in touch through any of the methods below:
+Whether you have a question, a collaboration idea, or an opportunity to discuss — I'd love to hear from you.
 
 _Email:_
-Feel free to drop me an email at [example@example.com](mailto:example@example.com), and I'll do my best to respond as soon as possible.
+[leonard.dost@gmail.com](mailto:leonard.dost@gmail.com)
 
-_Social Media:_
-Connect with me on social media as well. Find me on [Twitter](https://twitter.com) or [LinkedIn](https://www.linkedin.com/).
+_LinkedIn:_
+Connect with me on [LinkedIn](https://www.linkedin.com/in/leonard-dost-8aa267190/) — the best way to reach me professionally.
+
+_GitHub:_
+Check out my projects and contributions on [GitHub](https://github.com/ledostxx).

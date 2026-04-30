@@ -1,0 +1,98 @@
+---
+title: 'ShopTracker - Receipt Digitization via OCR & GenAI'
+description: Independent mobile app that turns physical receipts into structured data using real-time document detection, OCR, and GenAI — tested across 20+ Swiss and German retailers.
+publishDate: 'Apr 2026'
+isFeatured: true
+seo:
+  image:
+    src: '../../assets/images/project-5.jpg'
+    alt: ShopTracker app scanning a receipt in real time
+---
+
+{/* Hero carousel — horizontal scroll of app screens */}
+<div class="not-prose my-10">
+  <div class="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory -mx-4 px-4 scrollbar-hide" style="scrollbar-width: none; -ms-overflow-style: none;">
+    <div class="snap-center shrink-0 w-44">
+      <div class="bg-gray-950 rounded-[1.5rem] p-2 shadow-lg">
+        <img src="/images/shoptracker-home.jpg" alt="Dashboard with monthly spending and AI insights" class="rounded-[1.2rem] w-full" />
+      </div>
+      <p class="text-center text-xs mt-2 opacity-50">Dashboard</p>
+    </div>
+    <div class="snap-center shrink-0 w-44">
+      <div class="bg-gray-950 rounded-[1.5rem] p-2 shadow-lg">
+        <img src="/images/shoptracker-list.jpg" alt="Shopping list organized by store aisle" class="rounded-[1.2rem] w-full" />
+      </div>
+      <p class="text-center text-xs mt-2 opacity-50">Shopping List</p>
+    </div>
+    <div class="snap-center shrink-0 w-44">
+      <div class="bg-gray-950 rounded-[1.5rem] p-2 shadow-lg">
+        <img src="/images/shoptracker-history.jpg" alt="Receipt history across retailers" class="rounded-[1.2rem] w-full" />
+      </div>
+      <p class="text-center text-xs mt-2 opacity-50">History</p>
+    </div>
+    <div class="snap-center shrink-0 w-44">
+      <div class="bg-gray-950 rounded-[1.5rem] p-2 shadow-lg">
+        <img src="/images/shoptracker-analysis.jpg" alt="Spending analytics by category" class="rounded-[1.2rem] w-full" />
+      </div>
+      <p class="text-center text-xs mt-2 opacity-50">Analytics</p>
+    </div>
+  </div>
+</div>
+
+Independent project — designed, architected, and developed as a personal product.
+
+## Overview
+
+ShopTracker turns physical receipts into structured, actionable data. Users point their phone camera at a receipt, and the app automatically extracts store, date, individual items, quantities, prices, and discounts — then surfaces spending insights over time.
+
+The application addresses a gap in personal finance tooling: while banking apps show *how much* was spent, they don't capture *what* was purchased. ShopTracker closes that loop by digitizing the receipt itself.
+
+## Processing Pipeline
+
+{/* Scan → Process → Result flow */}
+<div class="not-prose my-8">
+  <div class="grid grid-cols-3 gap-3 max-w-2xl mx-auto items-center">
+    <div>
+      <div class="bg-gray-950 rounded-[1.5rem] p-2 shadow-lg">
+        <img src="/images/shoptracker-scan.jpg" alt="Real-time receipt detection" class="rounded-[1.2rem] w-full" />
+      </div>
+      <p class="text-center text-xs mt-2 opacity-50">1. Detect & Capture</p>
+    </div>
+    <div>
+      <div class="bg-gray-950 rounded-[1.5rem] p-2 shadow-lg">
+        <img src="/images/shoptracker-processing.jpg" alt="Receipt processing pipeline: image quality check, upload, digitization, categorization" class="rounded-[1.2rem] w-full" />
+      </div>
+      <p class="text-center text-xs mt-2 opacity-50">2. Process & Extract</p>
+    </div>
+    <div>
+      <div class="bg-gray-950 rounded-[1.5rem] p-2 shadow-lg">
+        <img src="/images/shoptracker-detail.jpg" alt="Structured receipt with items, prices, and discounts" class="rounded-[1.2rem] w-full" />
+      </div>
+      <p class="text-center text-xs mt-2 opacity-50">3. Structured Result</p>
+    </div>
+  </div>
+</div>
+
+The pipeline processes each receipt through four stages:
+
+1. **Real-time document detection** — The camera continuously evaluates frames and locks onto a receipt, providing visual feedback to the user
+2. **Image quality validation & upload** — The captured image is checked for quality, then uploaded for server-side processing
+3. **OCR + GenAI extraction** — Raw text is extracted via OCR, then a language model parses the noisy output into structured data: store, address, date, line items with quantities and prices, discounts, and totals
+4. **Categorization** — Items are automatically categorized (produce, dairy, bakery, etc.) for spending analysis
+
+## Architecture
+
+- **Monorepo (Turborepo):** Mobile app and API share TypeScript types and deploy independently, enforcing clean API contracts from the start
+- **Mobile (React Native + Expo):** Cross-platform development with identical camera and image processing behavior on iOS and Android
+- **Backend (Node.js + Supabase):** PostgreSQL-backed storage with row-level security, real-time sync, and Google Sign-In authentication
+- **AI/ML layer:** Document detection, OCR, and GenAI-based structured extraction
+
+## Key Engineering Challenges
+
+The core difficulty is not scanning a clean receipt under ideal conditions — it's handling real-world variability. The OCR and extraction pipeline is benchmarked across **20+ Swiss and German retail formats** (Migros, Coop, Denner, Lidl, Aldi, Rewe, Edeka, dm, and others) under varying image conditions: crumpled paper, low lighting, tilted angles, flash glare, and faded thermal print.
+
+Each retailer prints receipts in a different format — different layouts, fonts, abbreviations, discount notations, and languages. The GenAI structuring layer needs to generalize across all of these without retailer-specific templates.
+
+## Current Status
+
+Currently in **closed testing**, approaching first public release. All core features — scanning, extraction, storage, spending analytics, and shopping list — are functional and in daily use. A key ongoing challenge is maintaining feature parity and consistent behavior across **iOS and Android simultaneously**, particularly around camera APIs, image processing, and platform-specific UI conventions.

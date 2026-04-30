@@ -2,42 +2,43 @@
 title: About
 seo:
   title: About Me
-  description: Learn more about the person behind the website and embark on a journey of inspiration and shared experiences.
+  description: Learn more about Leonard Dost — from Media Management to Applied Data Science, building data-driven solutions across ML, cloud engineering, and AI products.
   image:
     src: '../../assets/images/about.jpg'
-    alt: A person sitting at a desk in front of a computer
+    alt: Leonard Dost
 ---
 
-![Alt text for image](../../assets/images/about.jpg)
+![Leonard Dost](../../assets/images/about.jpg)
 
-**Note!:** This about page is entirely fictional and created for the purpose of showcasing [Dante Astro.js theme functionality](https://justgoodui.com/astro-themes/dante/).
+## About Me
 
-## Ethan Donovan - Web Developer based in Estonia
+I'm Leonard Dost, originally from Baden-Baden, Germany, now based in Lucerne, Switzerland. I'm completing my **Master of Science in Applied Information and Data Science** at HSLU (Lucerne University of Applied Sciences and Arts), graduating in February 2027.
 
-**Greetings!** I'm Ethan Donovan, a passionate web developer residing in the picturesque landscapes of [Estonia](https://en.wikipedia.org/wiki/Estonia). With a keen eye for design and a love for crafting seamless digital experiences, I bring a unique blend of creativity and technical expertise to the world of web development.
+My path into data science wasn't linear. I started studying **Econometrics** at the University of Konstanz, then earned a **BSc in Media Management** from Hochschule RheinMain in Wiesbaden. Along the way I worked in sales consulting, web development, and revenue operations — roles that taught me how businesses actually use data to make decisions. That experience is what pulled me deeper into the technical side: I wanted to be the one building the solutions, not just using them.
 
-## Skills and Expertise
+## What Drives Me
 
-I specialize in front-end and back-end development, utilizing the latest technologies to build responsive and user-friendly websites. My proficiency includes **HTML**, **CSS**, **JavaScript**, and frameworks such as **Astro.js** for dynamic and interactive user interfaces. On the server side, I'm well-versed in Node.js and have experience with database management systems like MongoDB.
+I'm passionate about developing solutions out of data — whether that means building an end-to-end ML pipeline, designing a cloud-based data platform, or prototyping a mobile app. I thrive in young, ambitious teams and enjoy working internationally. I'm particularly drawn to **machine learning, deep learning, and research-oriented work** where I can push the boundaries of what's possible with data.
 
-## Innovation and Problem-Solving
+## Professional Experience
 
-I thrive on solving complex problems and transforming ideas into functional, elegant websites. Whether it's optimizing performance, implementing new features, or troubleshooting issues, I approach each challenge with enthusiasm and a commitment to delivering high-quality solutions.
+- **Revenue Operations Specialist** at Seibert Group GmbH (2024-present) — Streamlining business operations, optimizing CRM systems (HubSpot), automating processes
+- **Chairman of the Board** at Bildungspatenschaften e.V. (2021-present) — Website development, IT administration, partner research in India, NGO collaboration
+- **Web Designer/Developer** at metaX Institut fur Diathetik GmbH (2022-2024) — Website redesign, CRM migration, support and maintenance
+- **Sales Consultant** at Seibert Group GmbH (2020-2022) — Client management, process creation, chatbot enhancement, moderated TechTalk on chatbots
 
-## Global Perspective, Local Impact
+## Skills & Technologies
 
-Living in Estonia has not only influenced my appreciation for nature and culture but has also shaped my approach to web development. I understand the importance of creating digital solutions that resonate with local audiences while maintaining a global perspective.
+**Data Science & ML:** Python, pandas, scikit-learn, LightGBM, PyTorch, TensorFlow/Keras, statistical modeling, recommendation systems
 
-## Continuous Learning
+**Data Engineering:** AWS (Lambda, S3, ECS Fargate, Step Functions, RDS), PostgreSQL, PostGIS, MongoDB, ETL/ELT pipelines, Docker
 
-The dynamic nature of the tech industry inspires me to stay up-to-date with the latest trends and advancements. I'm always eager to expand my skill set and embrace emerging technologies that enhance the functionality and aesthetics of the websites I create.
+**Web & Mobile:** React Native, TypeScript, Astro.js, Node.js, Supabase, Turborepo
 
-## Collaboration and Communication
+**Analytics & Visualization:** R, Shiny, Tableau, matplotlib, seaborn, ggplot2
 
-I believe in the power of collaboration and effective communication. Whether working with clients, designers, or fellow developers, I value clear communication to ensure the success of every project.
+**Languages:** German (native), English (C1), Italian (A1), Hindi (A1)
 
 ## Get in Touch
 
-Are you looking to elevate your online presence or bring your digital ideas to life? I'd love to hear from you! Feel free to reach out for collaboration, consultation, or just a friendly chat about all things web development.
-
-_Let's build something amazing together!_
+I'm open to opportunities in data science, ML engineering, data consulting, and AI product development. Feel free to connect on [LinkedIn](https://www.linkedin.com/in/leonard-dost-8aa267190/) or explore my work on [GitHub](https://github.com/ledostxx).

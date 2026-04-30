@@ -3,17 +3,17 @@ import hero from '../assets/images/hero.jpg';
 import type { SiteConfig } from '../types';
 
 const siteConfig: SiteConfig = {
-    website: 'https://example.com',
+    website: 'https://www.leonarddost.de',
     avatar: {
         src: avatar,
         alt: 'Leonard Dost'
     },
     title: 'Leonard Dost',
     subtitle: 'Applied Data Science & AI',
-    description: 'Astro.js and Tailwind CSS theme for blog and portfolio by justgoodui.com',
+    description: 'Portfolio of Leonard Dost — Applied Data Science student building data-driven solutions with ML, GenAI, and modern web technologies.',
     image: {
         src: '/dante-preview.jpg',
-        alt: 'Dante - Astro.js and Tailwind CSS theme'
+        alt: 'Leonard Dost - Applied Data Science & AI Portfolio'
     },
     headerNavLinks: [
         {
@@ -25,12 +25,8 @@ const siteConfig: SiteConfig = {
             href: '/projects'
         },
         {
-            text: 'Blog',
-            href: '/blog'
-        },
-        {
-            text: 'Tags',
-            href: '/tags'
+            text: 'About',
+            href: '/about'
         }
     ],
     footerNavLinks: [
@@ -41,36 +37,24 @@ const siteConfig: SiteConfig = {
         {
             text: 'Contact',
             href: '/contact'
-        },
-        {
-            text: 'Terms',
-            href: '/terms'
-        },
-        {
-            text: 'Download theme',
-            href: 'https://github.com/JustGoodUI/dante-astro-theme'
         }
     ],
     socialLinks: [
         {
-            text: 'Dribbble',
-            href: 'https://dribbble.com/'
+            text: 'GitHub',
+            href: 'https://github.com/ledostxx'
         },
         {
-            text: 'Instagram',
-            href: 'https://instagram.com/'
-        },
-        {
-            text: 'X/Twitter',
-            href: 'https://twitter.com/'
+            text: 'LinkedIn',
+            href: 'https://www.linkedin.com/in/leonard-dost-8aa267190/'
         }
     ],
     hero: {
-        title: 'Hi There & Welcome to My Corner of the Web!',
-        text: "I'm **Leonard Dost**, an Applied Data Science student with a passion for artificial intelligence and web development.\nI love turning data into insights and building digital products that make a difference.\n\nFeel free to explore my projects and get in touch!",
+        title: 'Turning Data Into Decisions — and Ideas Into Products',
+        text: "I'm **Leonard Dost**, completing my MSc in Applied Information and Data Science at HSLU (graduating Feb 2027). I build end-to-end data solutions — from geospatial platforms on AWS to hybrid recommender systems and mobile apps powered by GenAI.\n\nCurrently looking for roles in **data science, ML engineering, or data consulting**.",
         image: {
             src: hero,
-            alt: 'A person sitting at a desk in front of a computer'
+            alt: 'Leonard Dost'
         },
         actions: [
             {
@@ -80,9 +64,9 @@ const siteConfig: SiteConfig = {
         ]
     },
     subscribe: {
-        enabled: true,
-        title: 'Subscribe to Dante Newsletter',
-        text: 'One update per week. All the latest posts directly in your inbox.',
+        enabled: false,
+        title: '',
+        text: '',
         form: {
             action: '#'
         }
