@@ -44,7 +44,7 @@ This set the ceiling for what any model could achieve — and shaped every decis
 
 **SHAP + LLM instead of a bare number:** A probability alone is not actionable for a sales rep. For every deal, the top-3 SHAP drivers are passed to an LLM (Gemini), which writes a short plain-language explanation stored next to the score in the CRM.
 
-**Same lesson, second model:** A sister model predicting deal wins initially reached AUC 0.95. I traced this to stage-timing features that implicitly encoded the outcome; after switching to the same snapshot approach it settled at a realistic 0.80.
+**Same lesson, second model:** A sister model predicting deal wins initially reached AUC 0.90. I traced this to stage-timing features that implicitly encoded the outcome; after switching to the same snapshot approach it settled at a realistic 0.80.
 
 ## Results
 
