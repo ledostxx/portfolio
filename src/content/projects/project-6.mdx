@@ -1,0 +1,89 @@
+---
+title: 'Renewal Churn Prediction - Production ML on Real CRM Data'
+description: Self-initiated churn model for B2B subscription renewals — temporal snapshot features, XGBoost + SHAP, and LLM-generated explanations written back to the CRM daily for sales prioritisation.
+publishDate: 'Mar 2026'
+isFeatured: true
+---
+
+import ChurnPipeline from '../../components/ChurnPipeline.astro';
+
+{/* Hero: pipeline diagram with real tool logos */}
+<ChurnPipeline />
+
+Industry project, self-initiated. RevOps team at a mid-sized B2B software services company. 2026. Company-specific details, absolute figures and internal names are anonymised.
+
+## Overview
+
+Churn on subscription renewals only became visible after the fact — when a renewal deal was lost. Nobody had asked for a churn model. I saw the gap, built a proof of concept on my own initiative, and took it all the way to a daily production pipeline.
+
+The business question: **Which open renewals are at risk, and why — early enough for sales to act?**
+
+## The Data Reality
+
+The CRM had never been designed with machine learning in mind. Before modelling, I audited what was actually usable across ~3k historical renewal deals and their activity history:
+
+- A field that is central from a business perspective (product/licence type) was **0% populated**.
+- The sales-qualification framework fields were filled in for only **~1%** of deals — not modellable.
+- Activity data was structured differently than documented (e.g. email direction values), so features had to be rebuilt from what was really there.
+- The base churn rate had **roughly halved** over three years. Older data actively misled the model, so training was restricted to recent years.
+
+This set the ceiling for what any model could achieve — and shaped every decision below.
+
+## Technical Decisions
+
+**Temporal snapshots instead of close-time features:** The first model version scored an impressive AUC of 0.91 — and then labelled 84% of all open deals as high risk. The cause: it was trained on features as they looked *at deal close*, but had to predict deals *mid-lifecycle*. I rebuilt the feature table with lifecycle snapshots at day 7, 14, 30, 60, 90 and 120, where every feature is computed only from information available at that point in time. For recent years this yields ~7.5k training rows from ~1.7k deals — and removed the leakage.
+
+<div class="not-prose my-8">
+  <img src="/images/churn-snapshots.jpg" alt="Two timelines: v1 uses features taken at deal close and sees the full history including the outcome; v2 takes snapshots at day 7, 14, 30, 60, 90 and 120 and only uses information available at each snapshot" class="rounded-lg shadow-md w-full" />
+  <p class="text-center text-xs mt-2 opacity-50">The leakage fix: every training row only sees what was known at its snapshot date — exactly the situation the model faces on open deals</p>
+</div>
+
+**GroupKFold by deal + time-based test split:** Snapshots of the same deal are highly correlated. Random cross-validation would leak between folds, so I used GroupKFold (4 folds, grouped by deal) for Optuna tuning (100 trials) and a strict chronological split for the final test set.
+
+**XGBoost with heavy regularisation:** Small, noisy dataset → shallow trees (best max_depth: 2), strong regularisation and feature subsampling. The tuned parameters clearly favour simple models, which matches the data quality.
+
+**SHAP + LLM instead of a bare number:** A probability alone is not actionable for a sales rep. For every deal, the top-3 SHAP drivers are passed to an LLM (Gemini), which writes a short plain-language explanation stored next to the score in the CRM.
+
+**Same lesson, second model:** A sister model predicting deal wins initially reached AUC 0.95. I traced this to stage-timing features that implicitly encoded the outcome; after switching to the same snapshot approach it settled at a realistic 0.80.
+
+## Results
+
+| Version | AUC | Observation |
+|---------|-----|-------------|
+| Logistic regression baseline | 0.61 | Linear signal is weak |
+| v1 — close-time features | 0.91 | Leakage: 84% of open deals flagged "high risk", useless in practice |
+| **v2 — temporal snapshots, recent data, Optuna** | **0.66** (test) / 0.77 (CV) | Honest mid-lifecycle performance, plausible risk distribution |
+| v4 — account-level features, Ridge regression | 0.65 (deal-level, 95% CI 0.57–0.72) | No measurable gain over the v2 setup on the same split (0.64; paired DeLong p = 0.93) → not deployed |
+
+<div class="not-prose my-8">
+  <img src="/images/churn-roc.png" alt="Deal-level ROC curves on the time-based test set: v2 setup with XGBoost reaches AUC 0.64 and v4 with Ridge regression and account features reaches AUC 0.65, both with 95% confidence intervals of 0.57 to 0.72; a paired DeLong test gives p = 0.93" class="rounded-lg shadow-md w-full sm:w-3/4 mx-auto" />
+  <p class="text-center text-xs mt-2 opacity-50">Deal-level ROC on the time-based test set. Both setups were re-trained on the identical split for a fair comparison. The curves are statistically indistinguishable (p = 0.93) — but on this test set v2 ranks the very top of the list more precisely, which is exactly where sales reps start.</p>
+</div>
+
+<div class="not-prose my-8">
+  <img src="/images/churn-risk-distribution.jpg" alt="Stacked bars: v1 flags 84% of open renewals as high risk; v2 distributes them as 30% low, 55% medium and 15% high risk" class="rounded-lg shadow-md w-full" />
+  <p class="text-center text-xs mt-2 opacity-50">Higher offline AUC, lower usefulness: v1 flagged almost everything as high risk — v2 produces a distribution sales can actually prioritise with</p>
+</div>
+
+Structural deal characteristics (acquisition channel, deal size, first vs. repeat renewal) turned out to be stronger predictors than behavioural signals such as email and meeting activity — some renewals are risky from day one.
+
+**Knowing when not to ship:** Months later I tested whether account-level features and a different model family would break through. I rebuilt the evaluation with one change per step, deal-level AUC with DeLong confidence intervals, and a paired DeLong test against the production setup. Result: no configuration got past a deal-level AUC of ~0.65 — adding account features to XGBoost even made it significantly worse (p = 0.015) until regularised regression recovered the loss. The new model was not measurably better — so v2 stays in production rather than adding complexity without evidence.
+
+## In Production
+
+Every day, the pipeline extracts open renewals, recomputes snapshot features at each deal's current age, scores them via a serverless function, generates explanations and writes score, risk level and reasons back to the CRM. Sales reps use the score as an **additional signal for prioritising their pipeline** — alongside their own judgement, not instead of it. Running costs are negligible (serverless scoring within free-tier limits, small DWH footprint).
+
+## What I Learned
+
+With an AUC around 0.65, the model is a prioritisation aid, not an oracle — and I positioned it that way deliberately. No model configuration got past this plateau. My working hypothesis: the strongest churn signal lives in product usage data, which is not part of the CRM, while CRM fields that could help are rarely filled in. Without the mandate to change sales processes, I focused on what I could control: honest validation, leakage-free features, and explanations reps can actually use.
+
+Looking back, I would involve sales stakeholders earlier. Turning a self-initiated project into a shared one is what creates the leverage to improve data capture — and to bring in the data sources (such as product usage) that are most likely to move the needle.
+
+## Technology Stack
+
+- **ML:** XGBoost, Optuna, SHAP, scikit-learn
+- **Data:** BigQuery (SQL feature engineering, temporal backfilling), HubSpot API
+- **Serving & orchestration:** Google Cloud Run Functions, Cloud Storage (versioned model artifacts), n8n
+- **GenAI:** Gemini for SHAP-to-text explanations
+
+Code and data are proprietary and cannot be shared.
